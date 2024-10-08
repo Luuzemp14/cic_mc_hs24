@@ -1,0 +1,19 @@
+services:
+  worker:
+    build: .
+    environment:
+      - MONITOR_URL=http://monitor:5001
+      - WORKER_ID=worker_1
+    ports:
+      - "5002:5000"
+    depends_on:
+      - monitor
+
+  monitor:
+    build:
+      context: ./monitor  # Separate directory for monitor Dockerfile
+    ports:
+      - "5001:5001"
+    environment:
+      - COST_LIMIT=100.0
+      - COST_PER_REQUEST=0.01

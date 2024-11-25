@@ -5,13 +5,13 @@ services:
       - MONITOR_URL=http://monitor:5001
       - WORKER_ID=worker_1
     ports:
-      - "5002:5000"
+      - "5002:5002"
     depends_on:
       - monitor
 
   monitor:
     build:
-      context: ./monitor  # Separate directory for monitor Dockerfile
+      context: ./monitor
     ports:
       - "5001:5001"
     environment:

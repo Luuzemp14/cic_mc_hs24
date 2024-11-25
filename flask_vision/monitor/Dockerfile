@@ -1,8 +1,8 @@
 FROM python:3.8-slim
 
-WORKDIR /app
+WORKDIR /monitor
 
-COPY . /app
+COPY . .
 
 RUN pip install --no-cache-dir flask
 

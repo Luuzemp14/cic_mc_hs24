@@ -5,16 +5,13 @@ FROM python:3.8-slim
 WORKDIR /app
 
 # copy the current directory contents into the container at /app
-COPY . /app
+COPY . .
 
 # install the requirements
 RUN pip install --no-cache-dir -r requirements.txt
 
 # port
-EXPOSE 5000
-
-#
-ENV NAME World
+EXPOSE 5002
 
 # Run app.py
 CMD ["python", "app.py"]

@@ -1,13 +1,17 @@
 import os
 import requests
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, render_template
 import boto3
+import re
 
 app = Flask(__name__)
 
 # Use environment variables for the monitor URL and worker ID
 monitor_url = os.environ.get("MONITOR_URL", "http://monitor:5001")
 worker_id = os.environ.get("WORKER_ID", "worker_1")
+
+ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg']
+
 
 # Function to notify monitor server
 def notify_monitor():
@@ -22,6 +26,22 @@ def notify_monitor():
     except Exception as e:
         print(f"Failed to notify monitor: {e}")
 
+
+def is_allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+def secure_filename(filename):
+    """
+    Sanitize a file name to ensure it is safe for use on the file system.
+    Removes unsafe characters and retains only alphanumeric characters,
+    dashes, underscores, and periods.
+    """
+    filename = os.path.basename(filename)  # Remove any directory components
+    filename = re.sub(r'[^a-zA-Z0-9_.-]', '_', filename)  # Replace unsafe characters
+    return filename
+
+
 # Worker registration function
 def register_worker():
     try:
@@ -32,6 +52,7 @@ def register_worker():
             print(f"Failed to register worker: {response.text}")
     except requests.ConnectionError as e:
         print(f"Connection error: {e}")
+
 
 # Celebrity detection function
 def detect_celebrities(image):
@@ -51,18 +72,27 @@ def detect_celebrities(image):
     celebrities = [{"Name": c["Name"], "Id": c["Id"]} for c in response["CelebrityFaces"]]
     return celebrities
 
+
 @app.route("/", methods=["GET"])
 def index():
     return render_template("upload.html")
 
-@app.route("/upload", methods=["POST"])
+
+@app.route("/upload", methods=["GET", "POST"])
 def upload_image():
-    file = request.files["image"]
-    if not file:
+    file = request.files.get("image")
+    if not file or file.filename == '':
         return render_template("upload.html", message="No image uploaded"), 400
+
+    if not is_allowed_file(file.filename):
+        return render_template("upload.html", message="Invalid file type. Only PNG, JPG, and JPEG are allowed."), 400
+
+    # Use custom secure_filename function
+    # filename = secure_filename(file.filename)
     image_content = file.read()
     celebrities = detect_celebrities(image_content)
     return render_template("upload.html", results=celebrities)
+
 
 if __name__ == "__main__":
     register_worker()

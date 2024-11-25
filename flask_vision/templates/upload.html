@@ -4,19 +4,19 @@
     <title>Upload Image</title>
 </head>
 <body>
-    <h1>Upload Image</h1>
-    <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="image">
-        <input type="submit">
-    </form>
+<h1>Upload Image</h1>
+<form action="/upload" method="POST" enctype="multipart/form-data">
+    <input type="file" name="image" accept="image/png, image/jpeg">
+    <button type="submit">Upload</button>
+</form>
 
-    {% if results is not none %}
+{% if results is not none %}
     <h2>Detected Celebrities:</h2>
     <ul>
         {% for celebrity in results %}
             <li>{{ celebrity.Name }}</li>
         {% endfor %}
     </ul>
-    {% endif %}
+{% endif %}
 </body>
 </html>

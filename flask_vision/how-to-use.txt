@@ -1,0 +1,10 @@
+after cloning the repo, run the following commands:
+
+create a virtual environment with conda or venv
+
+inside the IDE terminal, run the following commands:
+
+docker-compose up --build
+
+and the app should be running on http://localhost:5002/
+and the worker should be running on http://localhost:5001/

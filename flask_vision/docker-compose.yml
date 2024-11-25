@@ -4,6 +4,8 @@ services:
     environment:
       - MONITOR_URL=http://monitor:5001
       - WORKER_ID=worker_1
+    env_file:
+      - .env
     ports:
       - "5002:5002"
     depends_on:

@@ -35,7 +35,12 @@ def register_worker():
 
 # Celebrity detection function
 def detect_celebrities(image):
-    client = boto3.client("rekognition", region_name="us-east-1")
+    client = boto3.client(
+        "rekognition",
+        aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID"),
+        aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY"),
+        region_name=os.getenv("AWS_DEFAULT_REGION", "us-east-1"),
+    )
     response = client.recognize_celebrities(Image={"Bytes": image})
     notify_monitor()
     celebrities = [{"Name": c["Name"], "Id": c["Id"]} for c in response["CelebrityFaces"]]

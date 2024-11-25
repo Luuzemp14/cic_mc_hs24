@@ -35,6 +35,11 @@ def register_worker():
 
 # Celebrity detection function
 def detect_celebrities(image):
+
+    if os.getenv("MOCK_MODE", "False").lower() == "true":
+        print("Mock mode enabled. Returning mock data.")
+        return [{"Name": "John Doe", "Id": "12345"}]
+
     client = boto3.client(
         "rekognition",
         aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID"),

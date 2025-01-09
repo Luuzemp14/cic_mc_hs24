@@ -1,6 +1,6 @@
 services:
   worker:
-    build: .
+    image: arxseni/cic-main:worker-latest
     environment:
       - MOCK_MODE=False
       - MONITOR_URL=http://monitor:5001
@@ -13,8 +13,7 @@ services:
       - monitor
 
   monitor:
-    build:
-      context: ./monitor
+    image: arxseni/cic-main:monitor-latest
     ports:
       - "5001:5001"
     environment:

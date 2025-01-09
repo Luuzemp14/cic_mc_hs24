@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: flask-app
+  template:
+    metadata:
+      labels:
+        app: flask-app
+    spec:
+      containers:
+      - name: flask-app
+        image: arxseni/cic-main:worker-latest
+        ports:
+        - containerPort: 5002
+        env:
+        - name: MOCK_MODE
+          value: "False"
+        - name: MONITOR_URL
+          value: "http://monitor:5001"
+        - name: WORKER_ID
+          value: "worker_1"

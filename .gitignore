@@ -1,3 +1,6 @@
 .env
-flask_vision/.DS_Store
 secrets.txt
+.DS_Store
+notes.txt
+images/
+.idea/

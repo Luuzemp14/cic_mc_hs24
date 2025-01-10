@@ -38,7 +38,7 @@ inside the IDE terminal, run the following commands:
 docker-compose up --build
   ```
 
-and the app should be running on http://localhost:5002/
+and the app should be running on http://localhost:5002/ \
 and the worker should be running on http://localhost:5001/
 
 - You can then upload an image as png, jpg or jpeg file and press the button "upload"

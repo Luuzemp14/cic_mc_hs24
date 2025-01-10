@@ -12,21 +12,21 @@ after cloning the repo with git clone <repository-url> run the following command
 create a virtual environment with conda or venv
 
 with conda:
-```bash
-conda create --name <environment-name> python=3.9
-conda activate <environment-name>
+  ```bash
+  conda create --name <environment-name> python=3.9
+  conda activate <environment-name>
 
 with venv:
-```bash
-python3 -m venv venv
+  ```bash
+  python3 -m venv venv
 
 activate environment with mac or Liniux:
-```bash
-source venv/bin/activate
+  ```bash
+  source venv/bin/activate
 
 activate environment with Windows:
-```bash
-venv\Scripts\activate
+  ```bash
+  venv\Scripts\activate
 
 
 inside the IDE terminal, run the following commands:

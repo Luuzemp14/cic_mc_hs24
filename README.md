@@ -13,12 +13,14 @@ create a virtual environment with conda or venv
 
 with conda:
   ```bash
-    conda create --name <environment-name> python=3.9
-    conda activate <environment-name>
+conda create --name <environment-name> python=3.9
+conda activate <environment-name>
+  ```
 
 with venv:
   ```bash
-  python3 -m venv venv
+python3 -m venv venv
+  ```
 
 activate environment with mac or Liniux:
   ```bash

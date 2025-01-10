@@ -1,6 +1,15 @@
+images/img.jpeg
+images/img1.jpg
+images/img4.jpg
+images/img2.jpeg
+images/img5.jpg
+images/img3.jpg
+images/img7.jpeg
+images/img8.jpeg
+images/img6.jpg
 .env
 secrets.txt
-.DS_Store
 notes.txt
 images/
 .idea/
+.DS_Store

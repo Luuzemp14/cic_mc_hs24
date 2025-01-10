@@ -1,22 +1,105 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Upload Image</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Celebrity Finder</title>
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+ 
+        .container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+ 
+        h1 {
+            color: #5a5af1;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+ 
+        form {
+            margin-bottom: 20px;
+        }
+ 
+        input[type="file"] {
+            display: block;
+            margin: 10px auto;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 80%;
+        }
+ 
+        button {
+            background: #5a5af1;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+ 
+        button:hover {
+            background: #4747d1;
+        }
+ 
+        .results {
+            margin-top: 20px;
+        }
+ 
+        .results h2 {
+            font-size: 1.4em;
+            color: #444;
+        }
+ 
+        .results ul {
+            list-style: none;
+            padding: 0;
+        }
+ 
+        .results li {
+            background: #f0f0ff;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+</style>
 </head>
 <body>
-<h1>Upload Image</h1>
-<form action="/find celebrety" method="POST" enctype="multipart/form-data">
-    <input type="file" name="image" accept="image/png, image/jpeg">
-    <button type="submit">Find the celebrity</button>
+<div class="container">
+<h1>Celebrity Finder</h1>
+<form action="/find_celebrity" method="POST" enctype="multipart/form-data">
+<input type="file" name="image" accept="image/png, image/jpeg">
+<button type="submit">Find the Celebrity</button>
 </form>
-
-{% if results is not none %}
-    <h2>Detected Celebrities:</h2>
-    <ul>
-        {% for celebrity in results %}
-            <li>{{ celebrity.Name }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
+ 
+        {% if results is not none %}
+<div class="results">
+<h2>Detected Celebrities:</h2>
+<ul>
+                    {% for celebrity in results %}
+<li>{{ celebrity.Name }}</li>
+                    {% endfor %}
+</ul>
+</div>
+        {% endif %}
+</div>
 </body>
 </html>

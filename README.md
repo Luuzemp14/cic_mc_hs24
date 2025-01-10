@@ -13,8 +13,8 @@ create a virtual environment with conda or venv
 
 with conda:
   ```bash
-  conda create --name <environment-name> python=3.9
-  conda activate <environment-name>
+    conda create --name <environment-name> python=3.9
+    conda activate <environment-name>
 
 with venv:
   ```bash
@@ -37,4 +37,6 @@ and the app should be running on http://localhost:5002/
 and the worker should be running on http://localhost:5001/
 
 - You can then upload an image as png, jpg or jpeg file and press the button "upload"
-- Et voila, here is your celebrity! :) 
+- Et voila, here is your celebrity! :)
+
+

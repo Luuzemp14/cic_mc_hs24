@@ -9,6 +9,15 @@ The Dashboard is able to find the name of a celebrity based on an uploaded image
 
 after cloning the repo with git clone <repository-url> run the following commands:
 
+First you need to register yourself at [aws](https://aws.amazon.com/de/rekognition/) and create a free account. The Framework Celebrity Rekognition has a free use for small projects. After you get your credentials you need to create a `.env` file and save them into it which should look like:
+```bash
+AWS_ACCESS_KEY_ID=access-key
+AWS_SECRET_ACCESS_KEY=secret-access-key
+AWS_REGION=your-chosen-region
+MONITOR_URL=http://monitor:5001
+WORKER_ID=worker_1
+```
+
 create a virtual environment with conda or venv
 
 with conda:

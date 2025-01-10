@@ -1,3 +1,10 @@
+# CIC Minichallenge 1: Iseni - Zemp
+This Repo was built for the minichallenge in the module CIC (Cloud infrastructure and computing)
+
+The task was to built an app / dashboard using a cloud API. We used Flask as a REST-API and put it in to a docker image.
+
+The Dashboard is able to find the name of a celebrity based on an uploaded image.
+
 ## How to use the Dashboard to detect celebrities
 
 after cloning the repo with git clone <repository-url> run the following commands:

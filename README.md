@@ -24,16 +24,19 @@ python3 -m venv venv
 
 activate environment with mac or Liniux:
   ```bash
-  source venv/bin/activate
+source venv/bin/activate
+  ```
 
 activate environment with Windows:
   ```bash
-  venv\Scripts\activate
+venv\Scripts\activate
+  ```
 
 
 inside the IDE terminal, run the following commands:
-```bash
+  ```bash
 docker-compose up --build
+  ```
 
 and the app should be running on http://localhost:5002/
 and the worker should be running on http://localhost:5001/

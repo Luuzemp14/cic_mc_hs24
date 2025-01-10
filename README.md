@@ -45,7 +45,7 @@ inside the IDE terminal, run the following commands:
 ```bash
 docker-compose up --build
 ```
-and the app should be running on http://127.0.0.1:5002/ \
+and the app should be running on http://127.0.0.1:5002/
 
 - You can then upload an image as png, jpg or jpeg file and press the button "upload"
 - Et voila, here is your celebrity! :) 

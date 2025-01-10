@@ -7,7 +7,7 @@ app = Flask(__name__)
 COST_LIMIT = float(os.environ.get("COST_LIMIT", 100.0))
 COST_PER_REQUEST = float(os.environ.get("COST_PER_REQUEST", 0.01))
 workers_requests = {}
-total_cost = 0.0
+total_cost = 99.8
 
 @app.route("/register", methods=["POST"])
 def register_worker():

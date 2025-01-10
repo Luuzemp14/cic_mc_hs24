@@ -1,6 +1,6 @@
 import os
 import requests
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 import boto3
 import re
 
@@ -78,20 +78,35 @@ def index():
     return render_template("upload.html")
 
 
-@app.route("/upload", methods=["GET", "POST"])
+
+@app.route("/find_celebrity", methods=["GET", "POST"])
 def upload_image():
+    # Determine the User-Agent
+    user_agent = request.headers.get("User-Agent", "").lower()
+
+    # Handle the image upload
     file = request.files.get("image")
     if not file or file.filename == '':
-        return render_template("upload.html", message="No image uploaded"), 400
+        if "curl" in user_agent:
+            return jsonify({"error": "No image uploaded"}), 400
+        else:
+            return render_template("upload.html", message="No image uploaded"), 400
 
     if not is_allowed_file(file.filename):
-        return render_template("upload.html", message="Invalid file type. Only PNG, JPG, and JPEG are allowed."), 400
+        if "curl" in user_agent:
+            return jsonify({"error": "Invalid file type. Only PNG, JPG, and JPEG are allowed."}), 400
+        else:
+            return render_template("upload.html", message="Invalid file type. Only PNG, JPG, and JPEG are allowed."), 400
 
-    # Use custom secure_filename function
-    # filename = secure_filename(file.filename)
+    # Read the image content
     image_content = file.read()
     celebrities = detect_celebrities(image_content)
-    return render_template("upload.html", results=celebrities)
+
+    # Return response based on User-Agent
+    if "curl" in user_agent:
+        return jsonify({"celebrities": celebrities})
+    else:
+        return render_template("upload.html", results=celebrities)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,6 @@
+.env
+secrets.txt
+.DS_Store
+notes.txt
+images/
+.idea/

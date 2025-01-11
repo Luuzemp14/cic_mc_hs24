@@ -1,6 +1,8 @@
 services:
   worker:
-    image: arxseni/cic-main:worker-latest-v2
+    build:
+      context: .
+      dockerfile: Dockerfile
     environment:
       - MOCK_MODE=False
       - MONITOR_URL=http://monitor:5001
@@ -13,7 +15,9 @@ services:
       - monitor
 
   monitor:
-    image: arxseni/cic-main:monitor-latest-v2
+    build:
+      context: ./monitor
+      dockerfile: Dockerfile
     ports:
       - "5001:5001"
     environment:

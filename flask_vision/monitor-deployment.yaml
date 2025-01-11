@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
       - name: monitor
-        image: arxseni/cic-main:monitor-latest
+        image: arxseni/cic-main:monitor-latest-v2
+        imagePullPolicy: Always
         ports:
         - containerPort: 5001
         env:

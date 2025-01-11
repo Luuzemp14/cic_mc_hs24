@@ -14,13 +14,31 @@ spec:
     spec:
       containers:
       - name: flask-app
-        image: arxseni/cic-main:worker-latest
+        image: arxseni/cic-main:worker-latest-v2
+        imagePullPolicy: Always
         ports:
         - containerPort: 5002
         env:
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: AWS_ACCESS_KEY_ID
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: AWS_SECRET_ACCESS_KEY
+        - name: AWS_REGION
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: AWS_REGION
         - name: MOCK_MODE
           value: "False"
         - name: MONITOR_URL
           value: "http://monitor:5001"
         - name: WORKER_ID
-          value: "worker_1"
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name

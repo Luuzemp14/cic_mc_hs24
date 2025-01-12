@@ -10,13 +10,15 @@ app = Flask(__name__)
 monitor_url = os.environ.get("MONITOR_URL", "http://monitor:5001")
 worker_id = os.environ.get("WORKER_ID", "worker_1")
 
-ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg']
+ALLOWED_EXTENSIONS = ["png", "jpg", "jpeg"]
 
 
 # Function to notify monitor server
 def notify_monitor():
     try:
-        response = requests.post(f"{monitor_url}/track_request", json={"worker_id": worker_id})
+        response = requests.post(
+            f"{monitor_url}/track_request", json={"worker_id": worker_id}
+        )
         if response.status_code == 200:
             data = response.json()
             if data.get("stop_requests"):
@@ -28,7 +30,7 @@ def notify_monitor():
 
 
 def is_allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 def secure_filename(filename):
@@ -38,14 +40,16 @@ def secure_filename(filename):
     dashes, underscores, and periods.
     """
     filename = os.path.basename(filename)  # Remove any directory components
-    filename = re.sub(r'[^a-zA-Z0-9_.-]', '_', filename)  # Replace unsafe characters
+    filename = re.sub(r"[^a-zA-Z0-9_.-]", "_", filename)  # Replace unsafe characters
     return filename
 
 
 # Worker registration function
 def register_worker():
     try:
-        response = requests.post(f"{monitor_url}/register", json={"worker_id": worker_id})
+        response = requests.post(
+            f"{monitor_url}/register", json={"worker_id": worker_id}
+        )
         if response.status_code == 200:
             print(f"Worker {worker_id} registered successfully.")
         else:
@@ -56,7 +60,6 @@ def register_worker():
 
 # Celebrity detection function
 def detect_celebrities(image):
-
     if os.getenv("MOCK_MODE", "False").lower() == "true":
         print("Mock mode enabled. Returning mock data.")
         return [{"Name": "John Doe", "Id": "12345"}]
@@ -69,14 +72,15 @@ def detect_celebrities(image):
     )
     response = client.recognize_celebrities(Image={"Bytes": image})
     notify_monitor()
-    celebrities = [{"Name": c["Name"], "Id": c["Id"]} for c in response["CelebrityFaces"]]
+    celebrities = [
+        {"Name": c["Name"], "Id": c["Id"]} for c in response["CelebrityFaces"]
+    ]
     return celebrities
 
 
 @app.route("/", methods=["GET"])
 def index():
     return render_template("upload.html")
-
 
 
 @app.route("/find_celebrity", methods=["GET", "POST"])
@@ -86,7 +90,7 @@ def upload_image():
 
     # Handle the image upload
     file = request.files.get("image")
-    if not file or file.filename == '':
+    if not file or file.filename == "":
         if "curl" in user_agent:
             return jsonify({"error": "No image uploaded"}), 400
         else:
@@ -94,9 +98,20 @@ def upload_image():
 
     if not is_allowed_file(file.filename):
         if "curl" in user_agent:
-            return jsonify({"error": "Invalid file type. Only PNG, JPG, and JPEG are allowed."}), 400
+            return (
+                jsonify(
+                    {"error": "Invalid file type. Only PNG, JPG, and JPEG are allowed."}
+                ),
+                400,
+            )
         else:
-            return render_template("upload.html", message="Invalid file type. Only PNG, JPG, and JPEG are allowed."), 400
+            return (
+                render_template(
+                    "upload.html",
+                    message="Invalid file type. Only PNG, JPG, and JPEG are allowed.",
+                ),
+                400,
+            )
 
     # Read the image content
     image_content = file.read()
